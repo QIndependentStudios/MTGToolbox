@@ -4,8 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MTGToolbox</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
+    <div class="container-fluid">
+        <nav class="navbar-default">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("GridList", "Card")">
+                        Cards
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />

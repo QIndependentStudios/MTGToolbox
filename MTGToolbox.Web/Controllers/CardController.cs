@@ -16,9 +16,9 @@ namespace MTGToolbox.Web.Controllers
             _cardRepository = card;
         }
 
-        public IActionResult Index()
+        public IActionResult GridList()
         {
-            var cards = _cardRepository.GetAllCards().OrderBy(c => c.Name);
+            var cards = _cardRepository.GetAllCards();
 
             return View(cards);
         }

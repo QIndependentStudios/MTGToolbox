@@ -32,6 +32,11 @@ namespace MTGToolbox.Repository
             return _cards;
         }
 
+        public IEnumerable<ICard> GetCardsByDeckId(int deckId)
+        {
+            return _cards;
+        }
+
         public ICard GetCardByName(string name)
         {
             return _cards.FirstOrDefault(c => c.Name == name);
