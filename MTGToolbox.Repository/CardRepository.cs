@@ -6,45 +6,48 @@ using MTGToolbox.Core;
 
 namespace MTGToolbox.Repository
 {
-    public class CardRepository : ICardRepository
+    public class CardRepository : ICardRepository, IDisposable
     {
+        private MTGToolboxContext context;
         private List<ICard> _cards;
+        private bool disposed = false;
 
-        public CardRepository()
+        public CardRepository(MTGToolboxContext context)
         {
-            if (_cards == null)
-            {
-                InitializeCards();
-            }
+            this.context = context;
         }
 
-        private void InitializeCards()
+        public IEnumerable<ICard> GetCards()
         {
-            _cards = new List<ICard>
-                    {
-                        new Card { Id = 1, Name = "Ancestral Recall" },
-                        new Card { Id = 2, Name = "Black Lotus" }
-                    };
-        }
-
-        public IEnumerable<ICard> GetAllCards()
-        {
-            return _cards;
-        }
-
-        public IEnumerable<ICard> GetCardsByDeckId(int deckId)
-        {
-            return _cards;
+            return context.Cards.ToList();
         }
 
         public ICard GetCardByName(string name)
         {
-            return _cards.FirstOrDefault(c => c.Name == name);
+            return context.Cards.Find(name);
         }
 
         public ICard GetCardById(int id)
         {
-            return _cards.FirstOrDefault(c => c.Id == id);
+            return context.Cards.Find(id);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

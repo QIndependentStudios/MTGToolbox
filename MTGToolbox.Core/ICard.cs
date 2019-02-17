@@ -8,5 +8,6 @@ namespace MTGToolbox.Core
     {
         int Id { get; set; }
         string Name { get; set; }
+        string ImageFile { get; set; }
     }
 }

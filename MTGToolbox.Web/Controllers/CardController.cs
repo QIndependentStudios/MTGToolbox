@@ -10,7 +10,7 @@ namespace MTGToolbox.Web.Controllers
     public class CardController : Controller
     {
         private readonly ICardRepository _cardRepository;
-
+        
         public CardController(ICardRepository card)
         {
             _cardRepository = card;
@@ -18,7 +18,7 @@ namespace MTGToolbox.Web.Controllers
 
         public IActionResult GridList()
         {
-            var cards = _cardRepository.GetAllCards();
+             var cards = _cardRepository.GetCards();
 
             return View(cards);
         }
