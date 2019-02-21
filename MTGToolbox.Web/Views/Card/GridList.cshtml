@@ -10,7 +10,7 @@
         @foreach (var item in Model)
         {
             <div>
-                <img class="img-thumbnail" src="@item.ImageFile" />
+                <img class="img-thumbnail" src="@Url.Content(@item.ImageFile)" />
             </div>
         }
 </div>

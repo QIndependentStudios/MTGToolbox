@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace MTGToolbox.Repository
 {
     class UnitOfWork : IDisposable
     {
-        private MTGToolboxContext context = new MTGToolboxContext();
+        private MTGToolboxContext context;
         private ICardRepository cardRepository;
         private bool disposed = false;
+
+        public UnitOfWork(DbContextOptions<MTGToolboxContext> options)
+        {
+            context = new MTGToolboxContext(options);
+        }
 
         public ICardRepository CardRepository
         {

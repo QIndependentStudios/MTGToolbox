@@ -9,7 +9,6 @@ namespace MTGToolbox.Repository
     public class CardRepository : ICardRepository, IDisposable
     {
         private MTGToolboxContext context;
-        private List<ICard> _cards;
         private bool disposed = false;
 
         public CardRepository(MTGToolboxContext context)
@@ -17,17 +16,17 @@ namespace MTGToolbox.Repository
             this.context = context;
         }
 
-        public IEnumerable<ICard> GetCards()
+        public IEnumerable<Card> GetCards()
         {
             return context.Cards.ToList();
         }
 
-        public ICard GetCardByName(string name)
+        public Card GetCardByName(string name)
         {
             return context.Cards.Find(name);
         }
 
-        public ICard GetCardById(int id)
+        public Card GetCardById(int id)
         {
             return context.Cards.Find(id);
         }

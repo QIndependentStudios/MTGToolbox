@@ -1,14 +1,15 @@
 ﻿using MTGToolbox.Core;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MTGToolbox.Repository
 {
     public class MTGToolboxContext : DbContext
     {
-        public MTGToolboxContext() : base("MTGToolboxContext")
+        public MTGToolboxContext(DbContextOptions<MTGToolboxContext> options) : base(options)
         {
+
         }
 
-        public DbSet<ICard> Cards { get; set; }
+        public DbSet<Card> Cards { get; set; }
     }
 }
