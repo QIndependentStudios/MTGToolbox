@@ -9,6 +9,7 @@ namespace MTGToolbox.Repository
     {
         private MTGToolboxContext context;
         private ICardRepository cardRepository;
+        private IDeckRepository deckRepository;
         private bool disposed = false;
 
         public UnitOfWork(DbContextOptions<MTGToolboxContext> options)
@@ -25,6 +26,18 @@ namespace MTGToolbox.Repository
                     this.cardRepository = new CardRepository(context);
                 }
                 return cardRepository;
+            }
+        }
+
+        public IDeckRepository DeckRepository
+        {
+            get
+            {
+                if (this.deckRepository == null)
+                {
+                    this.deckRepository = new DeckRepository(context);
+                }
+                return deckRepository;
             }
         }
 

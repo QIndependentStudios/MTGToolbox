@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using MTGToolbox.Core;
 
 namespace MTGToolbox.Repository
 {
-    public class CardRepository : ICardRepository, IDisposable
+    public class DeckRepository : IDeckRepository, IDisposable
     {
         private MTGToolboxContext context;
         private bool disposed = false;
 
-        public CardRepository(MTGToolboxContext context)
+        public DeckRepository(MTGToolboxContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Card> GetCards()
+        public IEnumerable<Deck> GetDecks()
         {
-            return context.Cards.ToList();
+            return context.Decks.ToList();
         }
 
-        public Card GetCardById(int id)
+        public Deck GetDeckById(int id)
         {
-            return context.Cards.Find(id);
+            return context.Decks.Find(id);
         }
 
-        public Card GetCardByName(string name)
+        public Deck GetDeckByName(string name)
         {
-            return context.Cards.Find(name);
+            return context.Decks.Find(name);
         }
 
         protected virtual void Dispose(bool disposing)
