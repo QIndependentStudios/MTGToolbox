@@ -1,6 +1,5 @@
-﻿using System;
+﻿using MTGToolbox.Abstract;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MTGToolbox.Core
 {

@@ -1,52 +1,32 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MTGToolbox.Abstract;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MTGToolbox.Core;
 
 namespace MTGToolbox.Repository
 {
-    public class DeckRepository : IDeckRepository, IDisposable
+    public class DeckRepository : IDeckRepository
     {
         private MTGToolboxContext context;
-        private bool disposed = false;
 
         public DeckRepository(MTGToolboxContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Deck> GetDecks()
+        public IEnumerable<IDeck> GetDecks()
         {
             return context.Decks.ToList();
         }
 
-        public Deck GetDeckById(int id)
+        public IDeck GetDeckById(int id)
         {
             return context.Decks.Find(id);
         }
 
-        public Deck GetDeckByName(string name)
+        public IDeck GetDeckByName(string name)
         {
-            return context.Decks.Find(name);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            return context.Decks.SingleOrDefault(c => EF.Functions.Like(c.Name, name));
         }
     }
 }

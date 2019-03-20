@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MTGToolbox.Abstract;
 using MTGToolbox.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace MTGToolbox.Web
 {
@@ -19,7 +20,8 @@ namespace MTGToolbox.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MTGToolboxContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MTGToolboxDB")));
+            services.AddDbContext<MTGToolboxContext>(options => options.UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("MTGToolboxDB")));
             services.AddTransient<ICardRepository, CardRepository>();
             services.AddMvc();
         }

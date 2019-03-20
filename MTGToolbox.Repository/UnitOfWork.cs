@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MTGToolbox.Abstract;
 
 namespace MTGToolbox.Repository
 {
-    class UnitOfWork : IDisposable
+    internal class UnitOfWork
     {
         private MTGToolboxContext context;
         private ICardRepository cardRepository;
         private IDeckRepository deckRepository;
-        private bool disposed = false;
 
         public UnitOfWork(DbContextOptions<MTGToolboxContext> options)
         {
@@ -21,9 +18,9 @@ namespace MTGToolbox.Repository
         {
             get
             {
-                if (this.cardRepository == null)
+                if (cardRepository == null)
                 {
-                    this.cardRepository = new CardRepository(context);
+                    cardRepository = new CardRepository(context);
                 }
                 return cardRepository;
             }
@@ -33,9 +30,9 @@ namespace MTGToolbox.Repository
         {
             get
             {
-                if (this.deckRepository == null)
+                if (deckRepository == null)
                 {
-                    this.deckRepository = new DeckRepository(context);
+                    deckRepository = new DeckRepository(context);
                 }
                 return deckRepository;
             }
@@ -44,24 +41,6 @@ namespace MTGToolbox.Repository
         public void Save()
         {
             context.SaveChanges();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
